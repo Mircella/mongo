@@ -1,0 +1,24 @@
+version: "3.2"
+services:
+  # setup the MongoDB database
+  mongodb:
+    # pulls the latest, stable image
+    image: mongo:latest
+    container_name: mongodb
+
+    # bind mount volume for MongoDB documents
+    volumes:
+#      - $PWD/mongod.conf:/etc/mongod.conf
+#      - $PWD/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo/js:ro
+      - $PWD/data/db:/data/db
+      - $PWD/logs/:/var/log/mongodb/
+      - $PWD/imports/:/docker-entrypoint-initdb.d/imports:rw
+
+    ports:
+      - "27017-27019:27017-27019"
+
+    # configure the Docker entrypoint for MongoDB
+#    environment:
+#      - MONGO_INITDB_ROOT_USERNAME=mircella
+#      - MONGO_INITDB_ROOT_PASSWORD=mircella
+#      - MONGO_INITDB_DATABASE=patients
